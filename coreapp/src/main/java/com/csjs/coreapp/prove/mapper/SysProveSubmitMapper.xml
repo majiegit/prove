@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csjs.coreapp.prove.mapper.SysProveSubmitMapper">
+    <update id="updateStatusByIds" >
+        update SYS_PROVE_SUBMIT set STATUS = #{status} WHERE  id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+          #{id}
+      </foreach>
+    </update>
+
+    <update id="updateStatusById" >
+        update SYS_PROVE_SUBMIT set STATUS = #{status} WHERE  id = #{id}
+    </update>
+
+    <select id="listByProveId" resultType="com.csjs.coreapp.prove.entity.SysProveSubmit">
+        select * from SYS_PROVE_SUBMIT where PROVE_ID = #{proveId}
+    </select>
+    <select id="getProveByProveSubmitId" resultType="com.csjs.coreapp.prove.entity.SysProve">
+        SELECT * from SYS_PROVE p INNER JOIN SYS_PROVE_SUBMIT s on p.ID  =  s.PROVE_ID AND s.ID = #{proveSubmitId}
+    </select>
+
+    <select id="listProveSubmit" resultType="com.csjs.coreapp.prove.vo.SysProveSubmitVo">
+      SELECT s.*,PR."NAME" as prove_name from SYS_PROVE_SUBMIT s INNER JOIN SYS_PROVE pr ON s.PROVE_ID = PR."ID" AND s.USER_ID = #{userId} order by s.CREATE_TIME DESC
+    </select>
+</mapper>

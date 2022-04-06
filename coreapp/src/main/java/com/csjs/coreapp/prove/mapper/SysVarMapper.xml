@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csjs.coreapp.prove.mapper.SysVarMapper">
+    <select id="getParamFieldByTpId" resultType="com.csjs.coreapp.prove.entity.SysVar">
+        SELECT v.* FROM SYS_VAR v INNER JOIN SYS_TP_VAR tv ON tv.TP_ID = #{tpId} AND v. NAME = tv.TP_VAR_NAME
+    </select>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csjs.coreapp.prove.mapper.SysTpVarMapper">
+
+    <select id="listByTpId" resultType="com.csjs.coreapp.prove.entity.SysTpVar">
+       SELECT * from SYS_TP_VAR WHERE TP_ID = #{tpId}
+    </select>
+    <delete id="removeByTpId">
+        delete from SYS_TP_VAR WHERE TP_ID = #{tpId}
+    </delete>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csjs.coreapp.prove.mapper.SysProveSubmitCheckMapper">
+
+    <select id="getSubmitListByUserIdStatus" resultType="com.csjs.coreapp.prove.vo.ProveSubmitCheckListVo">
+        SELECT
+            s."ID",
+            s.USER_ID,
+            s.USER_NAME,
+            s.PROVE_ID,
+            pr.name as prove_name,
+            s.REMARK,
+            s.PROVE_LOOK,
+            s.PROVE_PATH,
+            s.CREATE_TIME,
+            s.STATUS,
+            c.STATUS AS check_status,
+            c."ID" AS check_id
+        FROM
+            SYS_PROVE_SUBMIT s
+        INNER JOIN SYS_PROVE_SUBMIT_CHECK c ON c.CHECK_USER_ID = #{userId}
+        <if test="status != null and status !=''">
+            AND c.STATUS = #{status}
+        </if>
+        <if test="proveId != null and proveId !=''">
+            AND c.PROVE_ID = #{proveId}
+        </if>
+        AND s."ID" = c.PROVE_SUBMIT_ID
+        INNER JOIN SYS_PROVE pr ON c.prove_id = pr."ID"
+        ORDER BY
+            s.CREATE_TIME DESC
+    </select>
+
+
+    <select id="listSubmitListCheck" resultType="com.csjs.coreapp.prove.entity.SysProveSubmitCheck">
+        select * from SYS_PROVE_SUBMIT_CHECK  where PROVE_SUBMIT_ID = #{proveSubmitId}
+
+        <if test="userId !=null and userId !=''">
+            and CHECK_USER_ID = #{userId}
+        </if>
+
+        <if test="status !=null ">
+            and status = #{status}
+        </if>
+
+        <if test="turn !=null ">
+            and turn = #{turn}
+        </if>
+        order by turn asc
+    </select>
+
+
+    <select id="getSubmitListCheckBy" resultType="com.csjs.coreapp.prove.entity.SysProveSubmitCheck">
+        select * from SYS_PROVE_SUBMIT_CHECK  where PROVE_SUBMIT_ID = #{proveSubmitId}
+
+        <if test="userId !=null and userId !=''">
+            and CHECK_USER_ID = #{userId}
+        </if>
+
+        <if test="status !=null ">
+            and status = #{status}
+        </if>
+    </select>
+
+    <select id="listSubmitListByProveSubmitId" resultType="com.csjs.coreapp.prove.entity.SysProveSubmitCheck">
+        select * from SYS_PROVE_SUBMIT_CHECK  where PROVE_SUBMIT_ID = #{proveSubmitId} order by turn desc
+    </select>
+
+    <select id="getProveDtoByProveSubmitId" resultType="com.csjs.coreapp.prove.dto.ProveDto">
+        SELECT p.ID as prove_id,p.NAME as prove_name, s.USER_NAME as apply_user,s.USER_ID as apply_user_id from SYS_PROVE p INNER JOIN SYS_PROVE_SUBMIT s ON p.ID = s.PROVE_ID AND s.ID = #{proveSubmitId}
+    </select>
+
+</mapper>

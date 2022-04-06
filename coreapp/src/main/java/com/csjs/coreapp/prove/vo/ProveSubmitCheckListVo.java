@@ -1,0 +1,33 @@
+package com.csjs.coreapp.prove.vo;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+public class ProveSubmitCheckListVo {
+
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+    private String userId;
+    private String userName;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long proveId;
+    private String proveName;
+    private String remark;
+    private Integer status;
+    private Integer checkStatus;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long checkId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
+    private String proveLook;
+    private String provePath;
+    private String checkOpinion;
+}
+
+

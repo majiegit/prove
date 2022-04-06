@@ -1,0 +1,66 @@
+#服务器端口
+server:
+  port: 7011
+  servlet:
+    context-path: /prove
+# 停止服务
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: shutdown
+spring:
+  mvc:
+    static-path-pattern: ${filePath}/**
+  resources:
+    static-locations: file:${filePath}
+  servlet:
+    multipart:
+      enabled: true  #配置文件传输
+      file-size-threshold: 0
+      max-file-size: 50MB
+      #总文件限制的大小
+      max-request-size: 100MB
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源.
+      datasource:
+        master:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@39.103.194.102:1521:helowin
+          username: lihao
+          password: lihao
+        slave:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@8.140.136.205:1521:orcl
+          username: nchr
+          password: nchr
+#        slave:
+#          driver-class-name: oracle.jdbc.driver.OracleDriver
+#          url: jdbc:oracle:thin:@8.140.136.205:1521:orcl
+#          username: nchr
+#          password: nchr
+      druid:
+        fail-fast: false
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+  #控制台打印sql配置信息
+logging:
+  level:
+    com.csjs.coreapp.mapper: debug   #对应的mapper包
+  config: classpath:logback-spring.xml
+
+filePath: /provefilepath
+
+ftp:
+  host: 127.0.0.1
+  port: 21
+  username: test
+  password: test

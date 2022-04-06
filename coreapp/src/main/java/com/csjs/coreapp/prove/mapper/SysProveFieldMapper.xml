@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csjs.coreapp.prove.mapper.SysProveFieldMapper">
+    <select id="listProveFieldsByType" resultType="com.csjs.coreapp.prove.entity.SysProveField">
+        select * from sys_prove_field where prove_id = #{proveId}
+        <if test="type != null || type != ''">
+            and field_type = #{type}
+        </if>
+    </select>
+</mapper>
